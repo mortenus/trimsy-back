@@ -23,6 +23,6 @@ createRoutes(app);
 //   });
 // });
 
-http.listen(process.env.PORT, function () {
-  console.log(`Server: http://localhost:${process.env.PORT}`);
+http.listen(3001, function () {
+  console.log(`Server: http://localhost:${3001}`);
 });
