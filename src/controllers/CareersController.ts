@@ -6,7 +6,7 @@ class FormController {
     const postData = {
       fullname: req.body.fullname,
       email: req.body.email,
-      text: req.body.description,
+      type: req.body.type,
     };
 
     const careers = new CareersModel(postData);
