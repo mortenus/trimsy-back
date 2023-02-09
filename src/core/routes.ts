@@ -3,7 +3,7 @@ import express from 'express';
 import io from 'socket.io';
 import cors from 'cors';
 
-import { FormController } from '../controllers';
+import { FormController, CareersController } from '../controllers';
 import { checkAuth } from '../middlewares';
 
 const routes = (app: express.Express, io?: io.Socket) => {
@@ -21,6 +21,7 @@ const routes = (app: express.Express, io?: io.Socket) => {
   app.use(checkAuth);
 
   app.post('/form', FormController.submit);
+  app.post('/careers', CareersController.submit);
 };
 
 export default routes;
