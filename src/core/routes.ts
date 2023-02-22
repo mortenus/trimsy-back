@@ -13,11 +13,11 @@ const routes = (app: express.Express, io?: io.Socket) => {
       extended: true,
     }),
   );
-  app.use(
-    cors({
-      origin: 'https://trimsy.org',
-    }),
-  );
+  //   app.use(
+  //     cors({
+  //       origin: 'https://trimsy.org',
+  //     }),
+  //   );
   app.use(checkAuth);
 
   app.post('/form', FormController.submit);

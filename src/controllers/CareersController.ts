@@ -1,6 +1,8 @@
 import express from 'express';
 import { CareersModel } from '../Models';
 
+require('dotenv').config();
+
 class FormController {
   submit(req: express.Request, res: express.Response) {
     const postData = {
@@ -14,6 +16,31 @@ class FormController {
     careers
       .save()
       .then((obj: any) => {
+        const sgMail = require('@sendgrid/mail');
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        const msg = {
+          to: 'careers@trimsy.ca', // Change to your recipient
+          from: 'support@trimsy.org', // Change to your verified sender
+          subject: `${obj.fullname} - New Application. Trimsy Careers`,
+          text: `New Application form has been received from Trimsy Careers!:
+          Info:
+          FullName: ${obj.fullname}
+          Email: ${obj.email}
+          Type: ${obj.type}`,
+          html: `<p>New Application form has been received from Trimsy Careers!:</p><br />
+          <span>FullName: ${obj.fullname}</span><br />
+          <span>Email: ${obj.email}</span><br />
+          <span>Type: ${obj.type}</span>`,
+        };
+        sgMail
+          .send(msg)
+          .then(() => {
+            console.log('Email sent');
+          })
+          .catch((error: any) => {
+            console.error(error);
+          });
+
         res.json(obj);
       })
       .catch((reason: any) => {
