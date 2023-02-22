@@ -11,15 +11,20 @@ class FormController {
       type: req.body.type,
     };
 
+    console.log('started');
+    console.log(postData);
+
     const careers = new CareersModel(postData);
 
     careers
       .save()
       .then((obj: any) => {
+        console.log('saved:', obj);
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        console.log('apiKey:', process.env.SENDGRID_API_KEY);
         const msg = {
-          to: 'careers@trimsy.ca', // Change to your recipient
+          to: 'morten.mathers@gmail.com', // Change to your recipient
           from: 'support@trimsy.org', // Change to your verified sender
           subject: `${obj.fullname} - New Application. Trimsy Careers`,
           text: `New Application form has been received from Trimsy Careers!:
@@ -32,6 +37,7 @@ class FormController {
           <span>Email: ${obj.email}</span><br />
           <span>Type: ${obj.type}</span>`,
         };
+        console.log('message:', msg);
         sgMail
           .send(msg)
           .then(() => {
