@@ -1,6 +1,8 @@
 import express from 'express';
 import { FormModel } from '../Models';
 
+import ipaddr from 'ipaddr.js';
+
 require('dotenv').config();
 
 class FormController {
@@ -23,7 +25,7 @@ class FormController {
       NEW:
       ${
         // @ts-ignore
-        req.ipInfo.ip
+        ipaddr.parse(req.ipInfo.ip)
       }
       ipAddress:
       ${ipAddress}
