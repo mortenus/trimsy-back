@@ -25,7 +25,7 @@ class FormController {
       NEW:
       ${
         // @ts-ignore
-        ipaddr.parse(req.ipInfo.ip)
+        ipaddr.parse(req.ipInfo.ip.replace(/^.*:/, '')).toString()
       }
       ipAddress:
       ${ipAddress}
