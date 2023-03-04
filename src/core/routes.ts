@@ -2,6 +2,8 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import io from 'socket.io';
 import cors from 'cors';
+// @ts-ignore
+import getIP = require('express-ip');
 
 import { FormController, CareersController } from '../controllers';
 import { checkAuth } from '../middlewares';
@@ -18,6 +20,7 @@ const routes = (app: express.Express, io?: io.Socket) => {
       origin: 'https://trimsy.org',
     }),
   );
+  app.use(getIP().getIpInfoMiddleware);
   app.use(checkAuth);
 
   app.post('/form', FormController.submit);

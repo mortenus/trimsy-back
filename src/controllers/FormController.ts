@@ -20,6 +20,11 @@ class FormController {
       from: 'support@trimsy.org', // Change to your verified sender
       subject: ` - New Application. Trimsy Careers`,
       text: `New Application form has been received from Trimsy Careers!:
+      NEW:
+      ${
+        // @ts-ignore
+        req.ipInfo.ip
+      }
       ipAddress:
       ${ipAddress}
       Headers:
