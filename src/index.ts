@@ -1,5 +1,5 @@
 import express from 'express';
-import socket from 'socket.io';
+// import socket from 'socket.io';
 import { createServer } from 'http';
 import dotenv from 'dotenv';
 
