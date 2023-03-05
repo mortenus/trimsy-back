@@ -2,11 +2,9 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import io from 'socket.io';
 import cors from 'cors';
-// @ts-ignore
-import getIP = require('express-ip');
 
 import { FormController, CareersController } from '../controllers';
-import { checkAuth } from '../middlewares';
+import { checkAuth, rateLimit } from '../middlewares';
 
 const routes = (app: express.Express, io?: io.Socket) => {
   //   app.use(bodyParser.json());
@@ -20,8 +18,9 @@ const routes = (app: express.Express, io?: io.Socket) => {
       origin: 'https://trimsy.org',
     }),
   );
-  app.use(getIP().getIpInfoMiddleware);
   app.use(checkAuth);
+
+  app.use('/form', rateLimit);
 
   app.post('/form', FormController.submit);
   app.post('/careers', CareersController.submit);

@@ -8,7 +8,7 @@ import createRoutes from './core/routes';
 
 const app = express();
 const http = createServer(app);
-const io = require('socket.io')(http);
+// const io = require('socket.io')(http);
 
 dotenv.config();
 
