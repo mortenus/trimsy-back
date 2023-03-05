@@ -4,9 +4,12 @@ import isEmail from 'validator/lib/isEmail';
 
 interface IBlogs extends Document {}
 
-const BlogsSchema = new Schema({
-  timestamps: true,
-});
+const BlogsSchema = new Schema(
+  {},
+  {
+    timestamps: true,
+  },
+);
 
 const BlogsModel = mongoose.model<IBlogs>('blogs', BlogsSchema);
 
