@@ -18,6 +18,11 @@ interface IForm extends Document {
     ref: string;
     require: true;
   };
+  ip: {
+    type: Schema.Types.Number;
+    ref: number;
+    require: false;
+  };
 }
 
 const CareersSchema = new Schema(
@@ -29,6 +34,7 @@ const CareersSchema = new Schema(
       validate: [isEmail, 'Invalid email'],
     },
     type: { type: Schema.Types.String, required: 'Type is required' },
+    ip: { type: Schema.Types.Number },
   },
   {
     timestamps: true,

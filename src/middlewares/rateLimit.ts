@@ -6,6 +6,9 @@ const limiter = rateLimit({
   windowMs: minutes * 60 * 1000,
   max: 3,
   message: 'Too many requests, please try again in few minutes',
+  skipFailedRequests: true,
+  skipSuccessfulRequests: true,
+  proxy: true,
 });
 
 export default limiter;

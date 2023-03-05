@@ -19,6 +19,7 @@ const routes = (app: express.Express, io?: io.Socket) => {
     }),
   );
   app.use(checkAuth);
+  app.set('trust proxy', true);
 
   app.use('/form', rateLimit);
 

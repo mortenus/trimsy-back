@@ -5,21 +5,14 @@ require('dotenv').config();
 
 class FormController {
   submit(req: express.Request, res: express.Response) {
+    const userIp = req.ip || req.headers['x-forwarded-for'];
+
     const postData = {
       fullname: req.body.fullname,
       email: req.body.email,
       text: req.body.description,
+      ip: userIp,
     };
-
-    const ip =
-      req.headers['x-forwarded-for'] ||
-      req.connection.remoteAddress ||
-      req.socket.remoteAddress ||
-      // @ts-ignore
-      (req.connection.socket ? req.connection.socket.remoteAddress : null);
-
-    console.log('new Application', ip);
-    return res.json('ok');
 
     const form = new FormModel(postData);
 
@@ -36,11 +29,13 @@ class FormController {
           Info:
           FullName: ${obj.fullname}
           Email: ${obj.email}
-          Text: ${obj.text}`,
+          Text: ${obj.text}
+          IP Address: ${obj.ip}`,
           html: `<p>New Application form has been received from Trimsy Careers!:</p><br />
           <span>FullName: ${obj.fullname}</span><br />
           <span>Email: ${obj.email}</span><br />
-          <span>Text: ${obj.text}</span>`,
+          <span>Text: ${obj.text}</span><br />
+          <span>IP Address: ${obj.ip}</span>`,
         };
         sgMail
           .send(msg)

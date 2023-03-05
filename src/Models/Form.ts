@@ -18,6 +18,11 @@ interface IForm extends Document {
     ref: string;
     require: true;
   };
+  ip: {
+    type: Schema.Types.Number;
+    ref: number;
+    require: false;
+  };
 }
 
 const FormSchema = new Schema(
@@ -29,6 +34,7 @@ const FormSchema = new Schema(
       validate: [isEmail, 'Invalid email'],
     },
     text: { type: Schema.Types.String, required: 'Text is required' },
+    ip: { type: Schema.Types.Number },
   },
   {
     timestamps: true,
