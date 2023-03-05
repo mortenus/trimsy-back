@@ -22,6 +22,7 @@ const routes = (app: express.Express, io?: io.Socket) => {
   app.set('trust proxy', true);
 
   app.use('/form', rateLimit);
+  app.use('/careers', rateLimit);
 
   app.post('/form', FormController.submit);
   app.post('/careers', CareersController.submit);

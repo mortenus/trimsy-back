@@ -46,10 +46,10 @@ class FormController {
             console.error(error);
           });
 
-        res.json(obj);
+        res.json({ message: 'success' });
       })
       .catch((reason: any) => {
-        res.json(reason);
+        res.status(400).json(reason);
       });
   }
 }
