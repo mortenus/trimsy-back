@@ -7,9 +7,13 @@ class BlogsController {
   get(req: express.Request, res: express.Response) {
     const blogs = new BlogsModel();
 
-    const result = blogs.collection.find({}).toArray();
-
-    res.send(result);
+    blogs.collection
+      .find()
+      .toArray()
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => res.status(400).json(err));
   }
 }
 
