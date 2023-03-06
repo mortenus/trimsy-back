@@ -3,22 +3,23 @@ import { BlogsModel } from '../Models';
 
 require('dotenv').config();
 
+import useGetQuery from '../hooks/useGetQuery';
+
+const maxItemsPerPage = 4;
+
 class BlogsController {
   async get(req: express.Request, res: express.Response) {
     const blogs = new BlogsModel();
 
-    const itemCount = await +blogs.collection.countDocuments();
+    const itemCount = await blogs.collection.countDocuments();
     const totalPages = Math.ceil(itemCount / 5);
 
-    //get query
-    const url = require('url');
-
-    const { query } = url.parse(req.url, true);
+    const customQuery = useGetQuery(req);
 
     blogs.collection
       .find()
-      .limit(5)
-      .skip(query.page * 5)
+      .limit(maxItemsPerPage)
+      .skip(+customQuery.page * maxItemsPerPage)
       .toArray()
       .then((result) => {
         const data = {
