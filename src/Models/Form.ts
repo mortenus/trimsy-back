@@ -22,6 +22,10 @@ interface IForm extends Document {
     type: Schema.Types.String;
     ref: string;
   };
+  userAgent: {
+    type: Schema.Types.String;
+    ref: string;
+  };
 }
 
 const FormSchema = new Schema(
@@ -34,6 +38,7 @@ const FormSchema = new Schema(
     },
     text: { type: Schema.Types.String, required: 'Text is required' },
     ip: { type: Schema.Types.String },
+    userAgent: { type: Schema.Types.String },
   },
   {
     timestamps: true,

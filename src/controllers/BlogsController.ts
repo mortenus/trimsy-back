@@ -19,7 +19,7 @@ class BlogsController {
     blogs.collection
       .find()
       .limit(maxItemsPerPage)
-      .skip(+customQuery.page * maxItemsPerPage)
+      .skip((+customQuery.page - 1) * maxItemsPerPage)
       .toArray()
       .then((result) => {
         const data = {
