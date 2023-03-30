@@ -5,7 +5,7 @@ require('dotenv').config();
 
 import useGetQuery from '../hooks/useGetQuery';
 
-const maxItemsPerPage = 4;
+const maxItemsPerPage = 7;
 
 class BlogsController {
   async get(req: express.Request, res: express.Response) {
