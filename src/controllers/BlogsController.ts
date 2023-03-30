@@ -12,9 +12,28 @@ class BlogsController {
     const blogs = new BlogsModel();
 
     const itemCount = await blogs.collection.countDocuments();
-    const totalPages = Math.ceil(itemCount / 5);
+    const totalPages = Math.ceil(itemCount / maxItemsPerPage);
 
     const customQuery = useGetQuery(req);
+
+    const hashtags = await blogs.collection.aggregate([
+      {
+        $unwind: '$hashtags',
+      },
+      {
+        $group: {
+          _id: '$hashtags',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          hashtag: '$_id',
+          count: 1,
+        },
+      },
+    ]);
 
     blogs.collection
       .find()
@@ -25,6 +44,7 @@ class BlogsController {
         const data = {
           items: result,
           totalPages,
+          hashtags,
         };
 
         res.send(data);
