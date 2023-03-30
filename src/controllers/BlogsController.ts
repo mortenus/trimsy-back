@@ -16,24 +16,11 @@ class BlogsController {
 
     const customQuery = useGetQuery(req);
 
-    const hashtags = await blogs.collection.aggregate([
-      {
-        $unwind: '$hashtags',
-      },
-      {
-        $group: {
-          _id: '$hashtags',
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          hashtag: '$_id',
-          count: 1,
-        },
-      },
-    ]);
+    const hashtags = await blogs.collection.distinct('data.hashtags', {
+      'data.date': { $gte: new Date('2023-01-01') },
+    });
+
+    console.log(hashtags);
 
     blogs.collection
       .find()
