@@ -13,6 +13,7 @@ class FormController {
       fullname: req.body.fullname,
       email: req.body.email,
       text: req.body.description,
+      productType: req.body.productType,
       ip: userIp,
       userAgent,
     };
@@ -39,6 +40,7 @@ class FormController {
           <span>FullName: ${obj.fullname}</span><br />
           <span>Email: ${obj.email}</span><br />
           <span>Text: ${obj.text}</span><br />
+          <span>ProductType: ${obj.productType}</span><br />
           <span>IP Address: ${obj.ip}</span><br />
           <span>User Agent: ${obj.userAgent}</span>`,
         };

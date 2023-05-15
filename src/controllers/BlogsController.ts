@@ -16,12 +16,6 @@ class BlogsController {
 
     const customQuery = useGetQuery(req);
 
-    const hashtags = await blogs.collection.distinct('data.hashtags', {
-      'data.date': { $gte: new Date('2023-01-01') },
-    });
-
-    console.log(hashtags);
-
     blogs.collection
       .find()
       .limit(maxItemsPerPage)
@@ -31,7 +25,6 @@ class BlogsController {
         const data = {
           items: result,
           totalPages,
-          hashtags,
         };
 
         res.send(data);
