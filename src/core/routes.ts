@@ -27,7 +27,7 @@ const routes = (app: express.Express, io?: io.Socket) => {
   app.post('/form', FormController.submit);
   app.post('/careers', CareersController.submit);
 
-  app.get('/blogs', BlogsController.get);
+  app.get('/blog', BlogsController.get);
   app.get('/blog/search', BlogsController.search);
 };
 
