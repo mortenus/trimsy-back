@@ -2,7 +2,7 @@ import express from 'express';
 
 const checkAuth = (req: any, res: any, next: any) => {
   console.log(req.path);
-  if (req.path === '/form' || req.path === '/careers' || req.path === '/blog') {
+  if (req.path === '/form' || req.path === '/careers' || req.path === '/blog/search') {
     return next();
   }
 
