@@ -1,12 +1,19 @@
 import express from 'express';
-import { FormModel } from '../Models';
+import { WebModel } from '../Models';
 
 require('dotenv').config();
+
+interface IOrder {
+  productType: string;
+  purpose: string;
+  seo: string;
+}
 
 interface TValues {
   fullname: string;
   email: string;
-  text: string;
+  //   description: string;
+  order: IOrder;
   ip: string | string[] | undefined;
   userAgent: string | undefined;
 }
@@ -20,33 +27,45 @@ class FormController {
     const postData: TValues = {
       fullname: req.body.fullname,
       email: req.body.email,
-      text: req.body.text,
+      order: {
+        productType: req.body.order.productType,
+        purpose: req.body.order.purpose,
+        seo: req.body.order.seo,
+      },
       ip: userIp,
       userAgent,
     };
 
-    const form = new FormModel(postData);
+    const form = new WebModel(postData);
 
     form
       .save()
-      .then((obj) => {
+      .then((obj: any) => {
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
           to: 'morten.mathers@gmail.com', // Change to your recipient
           from: 'support@trimsy.org', // Change to your verified sender
-          subject: `${obj.fullname} - New Application. Trimsy Forms`,
-          text: `New Application form has been received from Trimsy Forms!:
+          subject: `${obj.fullname} - New Application. Trimsy Web`,
+          text: `New Application form has been received from Trimsy Web!:
           Info:
           FullName: ${obj.fullname}
           Email: ${obj.email}
-          Text: ${obj.text}
+          Order: {
+              Product Type: ${obj.order.productType},
+              Purpose: ${obj.order.purpose},
+              SEO: ${obj.order.seo}
+          }
           IP Address: ${obj.ip}
           User Agent: ${obj.userAgent}`,
-          html: `<p>New Application form has been received from Trimsy Forms!:</p><br />
+          html: `<p>New Application form has been received from Trimsy Web!:</p><br />
           <span>FullName: ${obj.fullname}</span><br />
           <span>Email: ${obj.email}</span><br />
-          <span>Text: ${obj.text}
+          <span>Order: {
+            <span>Product Type: ${obj.order.productType}</span>,
+            <span>Purpose: ${obj.order.purpose}</span>,
+            <span>SEO: ${obj.order.seo}</span>
+            }
         </span><br />
           <span>IP Address: ${obj.ip}</span><br />
           <span>User Agent: ${obj.userAgent}</span>`,

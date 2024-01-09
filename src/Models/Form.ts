@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 import isEmail from 'validator/lib/isEmail';
 
 interface IForm extends Document {
-  name: {
+  fullname: {
     type: Schema.Types.String;
     ref: string;
     require: true;
@@ -16,13 +16,9 @@ interface IForm extends Document {
   text: {
     type: Schema.Types.String;
     ref: string;
-    require: true;
+    //   require: true;
   };
-  productType: {
-    type: Schema.Types.String;
-    ref: string;
-    require: true;
-  };
+
   ip: {
     type: Schema.Types.String;
     ref: string;
@@ -38,8 +34,7 @@ const FormSchema = new Schema(
       required: 'Email address is required',
       validate: [isEmail, 'Invalid email'],
     },
-    text: { type: Schema.Types.String, required: 'Text is required' },
-    productType: { type: Schema.Types.String },
+    text: { type: Schema.Types.String },
     ip: { type: Schema.Types.String },
     userAgent: { type: Schema.Types.String },
   },

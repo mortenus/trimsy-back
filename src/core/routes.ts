@@ -8,6 +8,7 @@ import {
   CareersController,
   BlogsController,
   AdminController,
+  WebController,
 } from '../controllers';
 import { loginValidation, registerValidation } from '../utils/validations';
 import { checkAuth, checkAuthUser, rateLimit } from '../middlewares';
@@ -35,9 +36,11 @@ const routes = (app: express.Express, io?: io.Socket) => {
   //   app.set('trust proxy', true);
 
   app.use('/form', rateLimit);
+  app.use('/web', rateLimit);
   app.use('/careers', rateLimit);
 
   app.post('/form', FormController.submit);
+  app.post('/web', WebController.submit);
   app.post('/careers', CareersController.submit);
 
   // blog
