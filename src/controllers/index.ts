@@ -3,9 +3,11 @@ import { default as CareersCtrl } from './CareersController';
 import { default as BlogsCtrl } from './BlogsController';
 import { default as AdminCtrl } from './AdminController';
 import { default as WebCtrl } from './WebController';
+import { default as PartnersCtrl } from './PartnersController';
 
 export const FormController = new FormCtrl();
 export const CareersController = new CareersCtrl();
 export const BlogsController = new BlogsCtrl();
 export const AdminController = new AdminCtrl();
 export const WebController = new WebCtrl();
+export const PartnersController = new PartnersCtrl();

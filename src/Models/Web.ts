@@ -19,19 +19,19 @@ interface IWeb extends Document {
   //     require: true;
   //   };
   order: {
-    productType: {
+    websiteType: {
       type: Schema.Types.String;
       ref: string;
       require: true;
     };
 
-    purpose: {
+    websitePurpose: {
       type: Schema.Types.String;
       ref: string;
       require: true;
     };
 
-    seo: {
+    seoPackage: {
       type: Schema.Types.String;
       ref: string;
       require: true;
@@ -55,9 +55,9 @@ const WebSchema = new Schema(
     },
     // text: { type: Schema.Types.String, required: 'Text is required' },
     order: {
-      productType: { type: Schema.Types.String },
-      purpose: { type: Schema.Types.String },
-      seo: { type: Schema.Types.String },
+      websiteType: { type: Schema.Types.String },
+      websitePurpose: { type: Schema.Types.String },
+      seoPackage: { type: Schema.Types.String },
     },
     ip: { type: Schema.Types.String },
     userAgent: { type: Schema.Types.String },

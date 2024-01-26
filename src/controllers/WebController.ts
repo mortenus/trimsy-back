@@ -4,9 +4,9 @@ import { WebModel } from '../Models';
 require('dotenv').config();
 
 interface IOrder {
-  productType: string;
-  purpose: string;
-  seo: string;
+  websiteType: string;
+  websitePurpose: string;
+  seoPackage: string;
 }
 
 interface TValues {
@@ -18,7 +18,7 @@ interface TValues {
   userAgent: string | undefined;
 }
 
-class FormController {
+class WebController {
   submit(req: express.Request, res: express.Response) {
     const userIp = req.ip || req.headers['x-forwarded-for'];
 
@@ -28,9 +28,9 @@ class FormController {
       fullname: req.body.fullname,
       email: req.body.email,
       order: {
-        productType: req.body.order.productType,
-        purpose: req.body.order.purpose,
-        seo: req.body.order.seo,
+        websiteType: req.body.order.websiteType,
+        websitePurpose: req.body.order.websitePurpose,
+        seoPackage: req.body.order.seoPackage,
       },
       ip: userIp,
       userAgent,
@@ -41,43 +41,43 @@ class FormController {
     form
       .save()
       .then((obj: any) => {
-        const sgMail = require('@sendgrid/mail');
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const msg = {
-          to: 'morten.mathers@gmail.com', // Change to your recipient
-          from: 'support@trimsy.org', // Change to your verified sender
-          subject: `${obj.fullname} - New Application. Trimsy Web`,
-          text: `New Application form has been received from Trimsy Web!:
-          Info:
-          FullName: ${obj.fullname}
-          Email: ${obj.email}
-          Order: {
-              Product Type: ${obj.order.productType},
-              Purpose: ${obj.order.purpose},
-              SEO: ${obj.order.seo}
-          }
-          IP Address: ${obj.ip}
-          User Agent: ${obj.userAgent}`,
-          html: `<p>New Application form has been received from Trimsy Web!:</p><br />
-          <span>FullName: ${obj.fullname}</span><br />
-          <span>Email: ${obj.email}</span><br />
-          <span>Order: {
-            <span>Product Type: ${obj.order.productType}</span>,
-            <span>Purpose: ${obj.order.purpose}</span>,
-            <span>SEO: ${obj.order.seo}</span>
-            }
-        </span><br />
-          <span>IP Address: ${obj.ip}</span><br />
-          <span>User Agent: ${obj.userAgent}</span>`,
-        };
-        sgMail
-          .send(msg)
-          .then(() => {
-            console.log('Email sent');
-          })
-          .catch((error: any) => {
-            console.error(error);
-          });
+        // const sgMail = require('@sendgrid/mail');
+        // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        // const msg = {
+        //   to: 'morten.mathers@gmail.com', // Change to your recipient
+        //   from: 'support@trimsy.org', // Change to your verified sender
+        //   subject: `${obj.fullname} - New Application. Trimsy Web`,
+        //   text: `New Application form has been received from Trimsy Web!:
+        //   Info:
+        //   FullName: ${obj.fullname}
+        //   Email: ${obj.email}
+        //   Order: {
+        //       Product Type: ${obj.order.productType},
+        //       Purpose: ${obj.order.purpose},
+        //       SEO: ${obj.order.seo}
+        //   }
+        //   IP Address: ${obj.ip}
+        //   User Agent: ${obj.userAgent}`,
+        //   html: `<p>New Application form has been received from Trimsy Web!:</p><br />
+        //   <span>FullName: ${obj.fullname}</span><br />
+        //   <span>Email: ${obj.email}</span><br />
+        //   <span>Order: {
+        //     <span>Product Type: ${obj.order.productType}</span>,
+        //     <span>Purpose: ${obj.order.purpose}</span>,
+        //     <span>SEO: ${obj.order.seo}</span>
+        //     }
+        // </span><br />
+        //   <span>IP Address: ${obj.ip}</span><br />
+        //   <span>User Agent: ${obj.userAgent}</span>`,
+        // };
+        // sgMail
+        //   .send(msg)
+        //   .then(() => {
+        //     console.log('Email sent');
+        //   })
+        //   .catch((error: any) => {
+        //     console.error(error);
+        //   });
 
         res.json({ message: 'success' });
       })
@@ -87,4 +87,4 @@ class FormController {
   }
 }
 
-export default FormController;
+export default WebController;

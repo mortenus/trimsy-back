@@ -9,9 +9,11 @@ import {
   BlogsController,
   AdminController,
   WebController,
+  PartnersController,
 } from '../controllers';
-import { loginValidation, registerValidation } from '../utils/validations';
+import { loginAdminValidation, registerAdminValidation } from '../utils/validations/admin';
 import { checkAuth, checkAuthUser, rateLimit } from '../middlewares';
+import { loginPartnersValidation, registerPartnersValidation } from '../utils/validations/partners';
 
 const routes = (app: express.Express, io?: io.Socket) => {
   app.use(bodyParser.json());
@@ -54,8 +56,13 @@ const routes = (app: express.Express, io?: io.Socket) => {
   //   app.get('/user/:id', AdminController.show);
   //   app.delete('/user/:id', AdminController.delete);
 
-  app.post('/auth/admin/signin', loginValidation, AdminController.login);
-  app.post('/auth/admin/signup', registerValidation, AdminController.create);
+  // Admin
+  app.post('/auth/admin/signin', loginAdminValidation, AdminController.login);
+  app.post('/auth/admin/signup', registerAdminValidation, AdminController.create);
+
+  // Partners
+  app.post('/auth/partners/signin', loginPartnersValidation, PartnersController.login);
+  app.post('/auth/partners/signup', registerPartnersValidation, PartnersController.create);
 
   app.use('/admin/*', (req, res, next) => {
     checkAuthUser(req, res, next);
